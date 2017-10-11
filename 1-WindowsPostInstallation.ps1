@@ -133,7 +133,7 @@ else {
     Write-Host "The update '.NET Framework 4.7' was installed." -ForegroundColor Green
 }
 
-# Verify if domain group "CANADASII\GRP-SEC-SYNC-TEAMS-MS" is member of "BUILTIN\Administrators" group (if not, force add).
+# Verify if domain group is member of "BUILTIN\Administrators" group (if not, force add).
 $AdminGroupMemberList = Get-LocalGroupMember -Group "Administrators"
 foreach($Member in $AdminGroupMemberList){
     if ($Member.name -like $DomainGroupString){ 
@@ -153,6 +153,3 @@ Write-Host "`n[SCRIPT FINISHED...]"
 Write-Host "`nAll prerequisites are installed. You can install SQL Server 2014 now!`n"
 Write-Host "Press any key to continue ..."
 $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
-$props = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full' -Name Release -ErrorAction SilentlyContinue
-    return $props -ne $null -and $props.Release -ge $Release
